@@ -1,0 +1,8 @@
+require "#{RAILS_ROOT}/vendor/plugins/2DMotor/style"
+require "#{RAILS_ROOT}/vendor/plugins/2DMotor/geometry"
+require "#{RAILS_ROOT}/vendor/plugins/2DMotor/transforms"
+require "#{RAILS_ROOT}/vendor/plugins/2DMotor/shapes"
+require "#{RAILS_ROOT}/vendor/plugins/2DMotor/composite_shapes"
+require "#{RAILS_ROOT}/vendor/plugins/2DMotor/user_shapes"
+require "#{RAILS_ROOT}/vendor/plugins/2DMotor/document"
+require "matrix"
