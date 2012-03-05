@@ -161,7 +161,7 @@ module Motor2D
         if para
           @ry = para.abs
         else
-          @ry = @rx    #@@@@ delay this
+          @ry = @rx    
         end
       end
       @x, @width = regularize_interval(@x, @width)
@@ -169,7 +169,6 @@ module Motor2D
       super(&block)
     end
     
-    # attachment points for arrows,...
     def t() @y end
     def b() @y+@height end
     def l() @x end
@@ -186,7 +185,6 @@ module Motor2D
     def mr() pt(r,cy) end
     def mc() pt(cx,cy) end
     
-    # hull points for bounding box
     def hull_points
       [tl, tr, bl, br]
     end
@@ -218,12 +216,11 @@ module Motor2D
           @cx, @cy = 0, 0
         end
       end
-      para = args.shift    #@@@@ test circtle with radius only!
+      para = args.shift  
       @r = para
       super(&block)
     end
     
-    #attachment points for arrows,...
     def t() [@cy-@r,@cy+@r].min end
     def b() [@cy-@r,@cy+@r].max end
     def l() [@cx-@r,@cx+@r].min end
@@ -237,8 +234,6 @@ module Motor2D
     def ml() pt(l,@cy) end
     def mr() pt(r,@cy) end
     def mc() pt(@cx,@cy) end
-    #end
-    # hull points for bounding box
     def approximate_tc() pt(@cx,@cy-@r*2*Math.sqrt(3)/3) end
     def approximate_tl() pt(l,@cy-@r*Math.sqrt(3)/3) end
     def approximate_tr() pt(r,@cy-@r*Math.sqrt(3)/3) end
@@ -249,7 +244,6 @@ module Motor2D
     def hull_points
       [approximate_tc, approximate_bc, approximate_tl, approximate_tr, approximate_bl, approximate_br]
     end
-    #end
     
     def to_svg
       result = output_element('circle',"cx='#{@cx}' cy='#{@cy}' r='#{@r}'")
@@ -272,7 +266,6 @@ module Motor2D
       super(&block)
     end
     
-    # attachment points for arrows,...
     def t() [@cy-@ry,@cy+@ry].min end
     def b() [@cy-@ry,@cy+@ry].max end
     def l() [@cx-@rx,@cx+@rx].min end
@@ -285,9 +278,7 @@ module Motor2D
     def bc() pt(@cx,b) end
     def ml() pt(l,@cy) end
     def mr() pt(r,@cy) end
-    def mc() pt(@cx,@cy) end
-    
-   # hull points for bounding box
+    def mc() pt(@cx,@cy) end 
     def approximate_tc() pt(@cx,@cy-(@rx*2*Math.sqrt(3)/3)*@ry/@rx) end
     def approximate_tl() pt(l,@cy-(@rx*Math.sqrt(3)/3)*@ry/@rx) end
     def approximate_tr() pt(r,@cy-(@rx*Math.sqrt(3)/3)*@ry/@rx) end
@@ -298,7 +289,6 @@ module Motor2D
     def hull_points
       [approximate_tc, approximate_bc, approximate_tl, approximate_tr, approximate_bl, approximate_br]
     end
-    #end  
     def to_svg
       result = output_element('ellipse', "cx='#{@cx}' cy='#{@cy}' rx='#{@rx}' ry='#{@ry}'")
     end
@@ -321,7 +311,6 @@ module Motor2D
       pt(@x2, @y2)
     end
     
-    # hull points for bounding box
     def hull_points
       [start, goal]
     end
@@ -342,7 +331,6 @@ module Motor2D
       super(&block)
     end
     
-    # hull points for bounding box
     def hull_points
       @points
     end
@@ -364,7 +352,6 @@ module Motor2D
       super(&block)
     end
     
-    # hull points for bounding box
     def hull_points
       @points
     end
@@ -375,18 +362,6 @@ module Motor2D
   end
   
   class Path < Shape
-=begin
-      names = %w[M m L l C c S s Q q T t Z z H h V v A a]
-      names.each { |name|
-        class_eval(<<-DEF)
-          def #{name} (*args)
-            while args.length > 0
-              @data << take_point(args).to_a
-            end
-          end
-        DEF
-      }
-=end
     def initialize (parent, *a, &block)
       @parent = parent
       take_id a
@@ -415,7 +390,6 @@ module Motor2D
     def path_cmd (*args)
       @data << current_method
       if /[ZzHhVvAa]/ =~ current_method
-        #@@@ need other treatment
       end
       while args.length > 0
         @data << take_point(args).to_a
@@ -433,7 +407,6 @@ module Motor2D
     end
   end
   
-  # this is very crude, just for extremely simple texts
   class Text < Shape
     def initialize (parent, text, *args, &block)
       @parent = parent
@@ -443,12 +416,10 @@ module Motor2D
       super(&block)
     end
     
-    # hull points for bounding box
     def hull_points
     end
     
     def to_svg
-  #   result = output_element('text', "x='#{@x}' y='#{@y}'#{xml_escape(@text)}")
       result = "<text x='#{@x}' y='#{@y}'#{common_attrs}>#{@text.xml_escape}</text>\n"
     end
   end
@@ -460,7 +431,6 @@ module Motor2D
       super(parent, *args, &block)
     end
     
-    # hull points for bounding box
     def hull_points
     end
     
@@ -473,7 +443,7 @@ module Motor2D
     def initialize (parent, *args, &block)
       @parent = parent
       @id = args.shift
-      @used_id, @id = @id, nil  #@@@@@@
+      @used_id, @id = @id, nil
       para = args.shift
       if para.respond_to?(:to_point)
         @x, @y = para.to_point.to_a
@@ -492,5 +462,5 @@ module Motor2D
       result = output_element('use', "xlink:href='##{@used_id}'")
     end
   end
-  
+ 
 end
