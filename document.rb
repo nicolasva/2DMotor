@@ -56,13 +56,23 @@ module Motor2D
          'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-basic.dtd'>
 <svg xmlns='http://www.w3.org/2000/svg'
   xmlns:xlink='http://www.w3.org/1999/xlink'
-  version='1.1' width='#{@width}' height='#{@height}' 
-	onload='Init(evt)'
-  	onmousedown='Grab(evt)'
-  	onmousemove='Drag(evt)'
-  	onmouseup='Drop(evt)' id='svgplan'>
-	<script xlink:href="/ecmascripts/plans.es" type="text/ecmascript"/>
+  version='1.1' width='#{@width}' height='#{@height}'>
 HEADER
+
+      #result << <<-HEADER
+#<?xml version='1.0' encoding='utf-8'?>
+#<?xml-stylesheet type="text/css" href="../stylesheets/svg_css/style.css" charset="utf-8"?>
+#<!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN'
+#         'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-basic.dtd'>
+#<svg xmlns='http://www.w3.org/2000/svg'
+#  xmlns:xlink='http://www.w3.org/1999/xlink'
+#  version='1.1' width='#{@width}' height='#{@height}' 
+#	onload='Init(evt)'
+#  	onmousedown='Grab(evt)'
+#  	onmousemove='Drag(evt)'
+#  	onmouseup='Drop(evt)' id='svgplan'>
+#	<script xlink:href="/ecmascripts/plans.es" type="text/ecmascript"/>
+#HEADER
 
 if $there_are_arrows
   result << <<-DEFS
