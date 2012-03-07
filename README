@@ -1,0 +1,9 @@
+Frameworks to generate SVG, and you can put your javascript or ecmascript for dynamic drawing
+
+Exemple : 
+drawing = Motor2D::Document.new(800, 800) do
+   im = image(0, translation_y, proportionimage.proportion(tab_floor_bin[2].to_s.to_f), proportionimage.proportion(tab_floor_bin[3].to_s.to_f), "/img_sqlite/floor/floor.png").style(:id=>'BackDrop')
+   circle(proportionimage.proportion(x1.to_f), proportionimage.proportion(y1.to_f), proportionimage.proportioncircledefaut).style(:stroke=>:yellow, :fill=>:red, :class=>"circle_point_red", :id=>"id_circle_point_red_#{tab_get_point[p][0]}").translate(proportionimage.proportionTranslate, proportionimage.proportionTranslate)
+end
+
+print drawing.to_svg
